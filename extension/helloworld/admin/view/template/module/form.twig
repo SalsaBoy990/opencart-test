@@ -1,0 +1,72 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="float-end">
+                <button type="submit" form="form-contact" data-toggle="tooltip" title="{{ button_save }}"
+                        class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
+                            class="fa fa-reply"></i></a>
+            </div>
+            {%  if (id > 0) %}
+            <h1>{{ contact_edit_heading_title }}</h1>
+            {%  else %}
+                <h1>{{ contact_add_heading_title }}</h1>
+            {%  endif %}
+            <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            {% if (name is not empty) %}
+                <h3 class="card-header fw-bold"><i class="fas fa-pencil-alt"></i> {{ 'Edit contact: ' ~ name }}</h3>
+            {% else %}
+                <h3 class="card-header fw-bold"><i class="fas fa-pencil-alt"></i> {{ 'Add new contact' }}</h3>
+            {% endif %}
+            <div class="card-body">
+                <form id="form-contact" action="{{ save }}" method="post" data-oc-toggle="ajax">
+
+                    <div class="form-group mb-3">
+                        <label for="name">{{ entry_fullname }}</label>
+                        <input type="text" name="name" value="{{ name ?? '' }}" placeholder="{{ entry_fullname }}"
+                               id="name" class="form-control"/>
+                        <div id="error-name" class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">{{ entry_email }}</label>
+                        <input type="email" name="email" value="{{ email ?? '' }}"
+                               placeholder="{{ entry_email }}"
+                               id="email" class="form-control"/>
+                        <div id="error-email" class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="message">{{ entry_message }}</label>
+                        <textarea type="message" name="message" rows="8" id="message" class="form-control">{{ message ?? '' }}</textarea>
+                        <div id="error-message" class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" name="gdpr"
+                                   id="gdpr" {{ gdpr ? 'checked' : '' }}>
+                            <label class="form-check-label" for="gdpr">
+                                {{ entry_gdpr }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="id" value="{{ id }}" id="input-contact-id"/>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{{ footer }}

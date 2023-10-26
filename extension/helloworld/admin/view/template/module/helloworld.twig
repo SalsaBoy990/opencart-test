@@ -10,7 +10,7 @@
                 <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
                             class="fa fa-reply"></i></a></div>
 
-            <h1>{{ heading_title }}</h1>
+            <h1>{{ front_heading_title }}</h1>
 
             <ol class="breadcrumb">
                 {% for breadcrumb in breadcrumbs %}
@@ -31,18 +31,59 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="h5"><i class="fa fa-pencil"></i>{{ 'AAAAAAA' }}</h3>
+                <h3 class="h4 fw-bold">{{ 'Contacts' }}</h3>
             </div>
             <div class="card-body">
-                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Gdpr</td>
+                                <td>Submitted date</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% if contacts %}
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td class="text-start">
+                                        {{ contact.name }}
+
+                                    </td>
+                                    <td class="text-start">{{ contact.email }}</td>
+                                    <td class="text-start">{{ contact.gdpr }}</td>
+                                    <td class="text-start">{{ contact.submitted_date }}</td>
+                                    <td>
+                                        <a href="{{ "#{view_url}&id=#{contact.id}&user_token=#{token}" }}" class="btn btn-sm btn-success">View</a>
+
+                                        <a href="{{ headermenu.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td class="text-center" colspan="7">{{ 'rertrt' }}</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
-        </div>
 
+
+        </div>
     </div>
 
-    <style>
+</div>
 
-    </style>
+<style>
 
-    {{ footer }}
+</style>
+
+{{ footer }}
