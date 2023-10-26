@@ -1,81 +1,41 @@
 <?php
 
-namespace Opencart\Admin\Controller\Extension\Helloworld\Module;
+namespace Opencart\Admin\Controller\Extension\Agsimplecontact\Ag;
 
-class Helloworld extends \Opencart\System\Engine\Controller
+class Agsimplecontact extends \Opencart\System\Engine\Controller
 {
     /* Translations */
-    const TRANSLATION = 'extension/helloworld/module/helloworld';
-
+    const TRANSLATION = 'extension/agsimplecontact/module/simplecontact';
 
     /* Permissions */
-    const PERMISSION = 'extension/helloworld/module/helloworld';
-
+    const PERMISSION = 'extension/agsimplecontact/ag/agsimplecontact';
 
     /* Routes */
-    const BASE_URL = 'extension/helloworld/module/helloworld';
-    const LIST_URL = 'extension/helloworld/module/helloworld|list';
-    const CONTACT_URL = 'extension/helloworld/module/helloworld|contact';
-    const FORM_URL = 'extension/helloworld/module/helloworld|form';
-    const SAVE_URL = 'extension/helloworld/module/helloworld|save';
-    const DELETE_URL = 'extension/helloworld/module/helloworld|delete';
+    const BASE_URL = 'extension/agsimplecontact/ag/agsimplecontact';
+    const LIST_URL = 'extension/agsimplecontact/ag/agsimplecontact|list';
+    const CONTACT_URL = 'extension/agsimplecontact/ag/agsimplecontact|contact';
+    const FORM_URL = 'extension/agsimplecontact/ag/agsimplecontact|form';
+    const SAVE_URL = 'extension/agsimplecontact/ag/agsimplecontact|save';
+    const DELETE_URL = 'extension/agsimplecontact/ag/agsimplecontact|delete';
 
 
     /* Views */
-    const FRONT_VIEW = 'extension/helloworld/module/helloworld';
-    const LIST_VIEW = 'extension/helloworld/module/list';
-    const SHOW_VIEW = 'extension/helloworld/module/view';
-    const FORM_VIEW = 'extension/helloworld/module/form';
+    const LIST_VIEW = 'extension/agsimplecontact/module/list';
+    const SHOW_VIEW = 'extension/agsimplecontact/module/view';
+    const FORM_VIEW = 'extension/agsimplecontact/module/form';
 
 
     /* Models */
-    const CONTACT_MODEL = 'extension/helloworld/contact/contact';
-
-
-    /* Codes for events */
-    const EVENT_CODE = 'helloworld_module_helloworld';
+    const CONTACT_MODEL = 'extension/agsimplecontact/contact';
 
 
     private $error = array();
 
 
-    /**
-     * Frontpage of the extension
-     *
-     * @return void
-     */
-    public function index()
+    public function index(): void
     {
-        $this->load->language(self::TRANSLATION);
-        $this->load->model(self::CONTACT_MODEL);
 
-        $this->document->setTitle($this->language->get('heading_title'));
-
-        /* Breadcrumbs */
-        $data['breadcrumbs']   = array();
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token='.$this->session->data['user_token'], true),
-        );
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_extension'),
-            'href' => $this->url->link('marketplace/extension',
-                'user_token='.$this->session->data['user_token'].'&type=module', true),
-        );
-
-        /* Common template parts */
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
-
-        $data['view_url'] = $this->url->link(self::CONTACT_URL);
-
-
-        $data['contacts'] = $this->model_extension_helloworld_contact_contact->getContacts([]);
-
-        $this->response->setOutput($this->load->view(self::FRONT_VIEW, $data));
     }
-
 
     /**
      * Contact list page
@@ -149,8 +109,8 @@ class Helloworld extends \Opencart\System\Engine\Controller
 
         $this->load->model(self::CONTACT_MODEL);
 
-        $contactsTotal = $this->model_extension_helloworld_contact_contact->getTotalContacts();
-        $results       = $this->model_extension_helloworld_contact_contact->getContacts($params);
+        $contactsTotal = $this->model_extension_agsimplecontact_contact->getTotalContacts();
+        $results       = $this->model_extension_agsimplecontact_contact->getContacts($params);
 
 
         foreach ($results as $result) {
@@ -276,7 +236,7 @@ class Helloworld extends \Opencart\System\Engine\Controller
         /* Get one contact by id */
         $this->load->model(self::CONTACT_MODEL);
         $id              = intval($this->request->get['id']);
-        $data['contact'] = $this->model_extension_helloworld_contact_contact->getContact($id);
+        $data['contact'] = $this->model_extension_agsimplecontact_contact->getContact($id);
 
         /* Render view with data */
         $this->response->setOutput($this->load->view(self::SHOW_VIEW, $data));
@@ -338,14 +298,13 @@ class Helloworld extends \Opencart\System\Engine\Controller
 
         // Get contact if exists
         if (isset($this->request->get['id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $contact = $this->model_extension_helloworld_contact_contact->getContact($this->request->get['id']);
+            $contact = $this->model_extension_agsimplecontact_contact->getContact($this->request->get['id']);
         }
         if (isset($this->request->get['id'])) {
             $data['id'] = (int) $this->request->get['id'];
         } else {
             $data['id'] = 0;
         }
-
 
         /* Contact name */
         if (isset($this->request->post['name'])) {
@@ -356,7 +315,6 @@ class Helloworld extends \Opencart\System\Engine\Controller
             $data['name'] = '';
         }
 
-
         /* Contact email */
         if (isset($this->request->post['email'])) {
             $data['email'] = $this->request->post['email'];
@@ -366,7 +324,6 @@ class Helloworld extends \Opencart\System\Engine\Controller
             $data['email'] = '';
         }
 
-
         /* Contact message */
         if (isset($this->request->post['message'])) {
             $data['message'] = $this->request->post['message'];
@@ -375,7 +332,6 @@ class Helloworld extends \Opencart\System\Engine\Controller
         } else {
             $data['message'] = '';
         }
-
 
         /* Contact GDPR */
         if (isset($this->request->post['gdpr'])) {
@@ -407,21 +363,18 @@ class Helloworld extends \Opencart\System\Engine\Controller
         $this->load->language(self::TRANSLATION);
 
         $json = [];
-
-        if (!$this->user->hasPermission('modify', self::PERMISSION)) {
-            $json['error']['warning'] = $this->language->get('error_permission');
-        }
+        $json = $this->validate();
 
 
-        if (!$json) {
+        if ( ! $json) {
             $this->load->model(self::CONTACT_MODEL);
 
-            if (!$this->request->post['id']) {
+            if ( ! $this->request->post['id']) {
                 // create
-                $json['id'] = $this->model_extension_helloworld_contact_contact->addContact($this->request->post);
+                $json['id'] = $this->model_extension_agsimplecontact_contact->addContact($this->request->post);
             } else {
                 // update
-                $this->model_extension_helloworld_contact_contact->editContact($this->request->post['id'],
+                $this->model_extension_agsimplecontact_contact->editContact($this->request->post['id'],
                     $this->request->post);
             }
 
@@ -449,16 +402,16 @@ class Helloworld extends \Opencart\System\Engine\Controller
             $selected = [];
         }
 
-        if (!$this->user->hasPermission('modify', self::PERMISSION)) {
+        if ( ! $this->user->hasPermission('modify', self::PERMISSION)) {
             $json['error'] = $this->language->get('error_permission');
         }
 
 
-        if (!$json) {
+        if ( ! $json) {
             $this->load->model(self::CONTACT_MODEL);
 
             foreach ($selected as $id) {
-                $this->model_extension_helloworld_contact_contact->deleteContact($id);
+                $this->model_extension_agsimplecontact_contact->deleteContact($id);
             }
 
             $json['success'] = $this->language->get('text_success');
@@ -470,120 +423,30 @@ class Helloworld extends \Opencart\System\Engine\Controller
 
 
     /**
-     * Runs when installing the extension
+     * Validate form submission
      *
-     * @return void
+     * @return array
      */
-    public function install(): void
+    private function validate(): array
     {
-        /* Load models */
-        $this->load->model('setting/event');
-        $this->load->model('user/user_group');
-        $this->load->model(self::CONTACT_MODEL);
-
-
-        /* Add table, seed table */
-        $this->model_extension_helloworld_contact_contact->install();
-        $this->model_extension_helloworld_contact_contact->seed();
-
-
-        /* Setup event for the menu */
-        if (VERSION >= '4.0.2.0') {
-            // action to be called...
-            $eventAction = self::BASE_URL.'.menu';
-        } else {
-            $eventAction = self::BASE_URL.'|menu';
-        }
-        // delete previous
-        $this->model_setting_event->deleteEventByCode(self::EVENT_CODE);
-
-        $eventRequest = [
-            'code'        => self::EVENT_CODE,
-            'description' => 'Helloworld Extension',
-            'trigger'     => 'admin/view/common/column_left/before',
-            'action'      => $eventAction,
-            'status'      => '1',
-            'sort_order'  => '1',
-        ];
-
-        if (VERSION == '4.0.0.0') {
-            $this->model_setting_event->addEvent(self::EVENT_CODE, 'Helloworld Extension',
-                'admin/view/common/column_left/before', 'extension/helloworld/module/helloworld|menu', true,
-                1);
-        } else {
-            $this->model_setting_event->addEvent($eventRequest);
+        $json = [];
+        if ( ! $this->user->hasPermission('modify', self::PERMISSION)) {
+            $json['error']['warning'] = $this->language->get('error_permission');
         }
 
-
-        // Add permissions for access
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', self::PERMISSION);
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', self::PERMISSION);
-    }
-
-
-    /**
-     * Runs when uninstalling the extension
-     *
-     * @return void
-     */
-    public function uninstall(): void
-    {
-        $this->load->model('user/user_group');
-        $this->load->model('setting/event');
-        $this->load->model(self::CONTACT_MODEL);
-
-
-        /* Delete custom table */
-        $this->model_extension_helloworld_contact_contact->uninstall();
-
-
-        /* Delete menu */
-        $this->model_setting_event->deleteEventByCode(self::EVENT_CODE);
-
-
-        /* Delete permissions */
-        $this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', self::PERMISSION);
-        $this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', self::PERMISSION);
-    }
-
-
-    /**
-     * Admin sidebar navigation menu -> add links
-     *
-     * @param  string  $route
-     * @param  array  $args
-     * @param  mixed  $output
-     *
-     * @return void
-     */
-    public function menu(string &$route, array &$args, mixed &$output): void
-    {
-        $moduleStatus = $this->config->get('module_headermenu_status');
-
-        if ( ! empty($moduleStatus)) {
-            $this->load->language(self::TRANSLATION);
-
-            $customMenu = [];
-
-            if ($this->user->hasPermission('access', self::PERMISSION)) {
-                $customMenu[] = [
-                    'name'     => $this->language->get('text_headermenu'),
-                    'href'     => $this->url->link(self::LIST_URL,
-                        'user_token='.$this->session->data['user_token']),
-                    'children' => [],
-                ];
-            }
-
-            if ($customMenu) {
-                $args['menus'][] = [
-                    'id'       => 'menu-extension',
-                    'icon'     => 'fas fa-message',
-                    'name'     => $this->language->get('text_subheadermenu'),
-                    'href'     => '',
-                    'children' => $customMenu,
-                ];
-            }
-
+        if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 32)) {
+            $json['error']['name'] = $this->language->get('error_name');
         }
+
+        if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+            $json['error']['email'] = $this->language->get('error_email');
+        }
+
+        if ((oc_strlen($this->request->post['message']) < 10) || (oc_strlen($this->request->post['message']) > 3000)) {
+            $json['error']['message'] = $this->language->get('error_message');
+        }
+
+        return $json;
     }
+
 }

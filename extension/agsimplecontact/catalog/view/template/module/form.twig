@@ -1,0 +1,50 @@
+<div class="card my-4">
+    <h3 class="card-header fw-bold">{{ 'Contact Us' }}</h3>
+    <div class="card-body">
+        <form id="form-contact" action="{{ save }}" method="post" data-oc-toggle="ajax">
+            <fieldset>
+                <div class="row mb-3 required">
+                    <label for="input-name" class="col-sm-2 col-form-label">{{ entry_fullname }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control"/>
+                        <div id="error-name" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="row mb-3 required">
+                    <label for="input-email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control"/>
+                        <div id="error-email" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="row mb-3 required">
+                    <label for="input-message" class="col-sm-2 col-form-label">{{ entry_message }}</label>
+                    <div class="col-sm-10">
+                        <textarea name="message" rows="10" id="input-message" class="form-control"></textarea>
+                        <div id="error-message" class="invalid-feedback"></div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-sm-2 col-form-label"></div>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" name="gdpr" id="gdpr">
+                            <label class="form-check-label" for="gdpr">
+                                {{ entry_gdpr }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                {{ captcha }}
+            </fieldset>
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">{{ button_submit }}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+

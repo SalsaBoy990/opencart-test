@@ -1,5 +1,5 @@
 <?php
-namespace Opencart\Admin\Model\Extension\Helloworld\Contact;
+namespace Opencart\Admin\Model\Extension\Agsimplecontact;
 
 /**
  * DB repository to manage contacts (submitted on the contact form)

@@ -1,12 +1,13 @@
 <?php
 /* Frontpage */
-$_['front_heading_title'] = 'HelloWorld Contact List';
-
+$_['front_heading_title'] = 'AG Simple Contacts Contact List';
+$_['simplecontact_heading_title'] = 'AG Simple Contacts';
+$_['heading_title'] = 'AG Simple Contacts';
 
 /* Contact pages */
 $_['contact_list_heading_title'] = 'Contact List';
 $_['contact_edit_heading_title'] = 'Edit Contact';
-$_['contact_add_heading_title'] = 'Add Contact';
+$_['contact_add_heading_title']  = 'Add Contact';
 $_['contact_show_heading_title'] = 'Contact List Item';
 $_['show_contact_title']         = 'Hello World Contacts';
 $_['back']                       = 'Go back';
@@ -31,8 +32,8 @@ $_['entry_gdpr']            = 'Accept GDPR';
 
 // Text
 $_['text_extension'] = 'Extensions';
-$_['text_success']   = 'Success: You have modified Hello World Content module!';
-$_['text_edit']      = 'Edit Hello World Content Module';
+$_['text_success']   = 'Success: You have modified AG Simple Contacts module!';
+$_['text_edit']      = 'Edit AG Simple Contacts Module';
 // Entry
 $_['entry_name']   = 'Module Name';
 $_['entry_title']  = 'Heading Title';
